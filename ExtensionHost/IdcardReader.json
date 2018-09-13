@@ -1,0 +1,9 @@
+{
+  "name": "dhht.idcard.reader",
+  "description": "ExtensionHost",
+  "path": "ExtensionHost.exe",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://jfjkbhodibofpgabdkkhbfndllodadkd/"
+  ]
+}

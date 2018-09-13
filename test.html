@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+ * Copyright 2013 The Chromium Authors. All rights reserved.  Use of this
+ * source code is governed by a BSD-style license that can be found in the
+ * LICENSE file.
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript">
+        var extensionNodeId = "extension_jfjkbhodibofpgabdkkhbfndllodadkd";
+        var extensionNode;
+
+        var extensionCommandNode;
+        var extensionResponseNode;
+		//发送读卡指令
+        function sealVerify() {
+            if (!extensionNode) {
+                alert('个人化插件未安装！');
+                return;
+            }
+            var readCardEvent = document.createEvent('Event');
+            readCardEvent.initEvent('sealVerify', true, true);
+            // 发出事件
+            extensionNode.dispatchEvent(readCardEvent);
+        }
+
+           function personal() {
+             var readCardEvent = document.createEvent('Event');
+            readCardEvent.initEvent('Personal', true, true);
+            // 发出事件
+            extensionNode.dispatchEvent(readCardEvent);
+        }
+          function readCard() {
+            if (!extensionNode) {
+                alert('读卡器插件未安装！');
+                return;
+            }
+            var readCardEvent = document.createEvent('Event');
+            readCardEvent.initEvent('ReadIDCard', true, true);
+            // 发出事件
+            extensionNode.dispatchEvent(readCardEvent);
+        }
+         function sealRevoke() {
+            if (!extensionNode) {
+                alert('个人化插件未安装！');
+                return;
+            }
+            var readCardEvent = document.createEvent('Event');
+            readCardEvent.initEvent('sealRevoke', true, true);
+            // 发出事件
+            extensionNode.dispatchEvent(readCardEvent);
+        }
+		
+         function sealRevokeData() {
+            if (!extensionNode) {
+                alert('个人化插件未安装！');
+                return;
+            }
+            var readCardEvent = document.createEvent('Event');
+            readCardEvent.initEvent('SendRevokeData', true, true);
+            // 发出事件
+            extensionNode.dispatchEvent(readCardEvent);
+        }
+
+
+		//检测插件并注册监听
+        function checkExtension() {
+            extensionNode = document.getElementById(extensionNodeId);
+            if (!extensionNode) {
+                alert('读卡器插件未安装！');
+                return;
+            }
+            extensionCommandNode = document.getElementById(extensionNodeId + 'command');
+            extensionResponseNode = document.getElementById(extensionNodeId + 'response');
+
+            extensionNode.addEventListener('ReadCardResult', function () {
+                var data = JSON.parse(extensionNode.innerText);
+                if (data.code != 0) {
+                    alert(data.message);
+                    return;
+                }
+                document.getElementById('response').innerHTML += "<p>" + "Received message: <b>" + JSON.stringify(data) + "</b>" + "</p>";
+
+                 document.getElementById('photo').src = "data:image/jpeg;base64," + data.idcardData.photo;
+            });
+            extensionNode.addEventListener('RevokeData', function () {
+
+
+                sealRevokeData();
+                // var data = JSON.parse(extensionNode.innerText);
+                // if (data.code != 0) {
+                //     alert(data.message);
+                //     return;
+                // }
+
+                // document.getElementById('response').innerHTML += "<p>" + "Received message: <b>" + JSON.stringify(data) + "</b>" + "</p>";
+
+                // document.getElementById('photo').src = "data:image/jpeg;base64," + data.idcardData.photo;
+            });
+
+            extensionNode.addEventListener('PersonalData', function () {
+                extensionCommandNode.innerHTML = JSON.stringify(personalData);
+                console.log("发送个人化数据");
+                var readCardEvent = document.createEvent('Event');
+            readCardEvent.initEvent('SendPersonalData', true, true);
+            // 发出事件
+            extensionNode.dispatchEvent(readCardEvent);
+               // dispatchExtensionEvent("");
+            });
+
+
+            extensionNode.addEventListener('VerifyResult', function () {
+                var data = JSON.parse(extensionNode.innerText);
+                if (data.code != 0) {
+                    alert(data.message);
+                    return;
+                }
+                document.getElementById('response').innerHTML += "<p>" + "Received message: <b>" + JSON.stringify(data) + "</b>" + "</p>";
+
+                // document.getElementById('photo').src = "data:image/jpeg;base64," + data.idcardData.photo;
+            });
+        }
+
+     
+    </script>
+
+</head>
+<body onload="checkExtension()">
+    <img id="photo" style="width:90px;height:120px;" src=""/>
+    <button id='connect-button' onClick="sealVerify();">读取芯片</button>
+    <button id='connect-button' onClick="readCard();">身份证读卡</button>
+    <button id='connect-button' onClick="sealRevoke();">芯片注销</button>
+    <button id='test-button' onClick="personal();">个人化</button>
+    
+    <div id='response'></div>
+</body>
+
+</html>

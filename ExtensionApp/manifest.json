@@ -1,0 +1,37 @@
+{
+  "key": "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSVwCH8EfcqiFuycbp8oRqBLH+qeXw2LVweqGN/VBYTXm2jpjDXp8Zg+LfRU+4CRP0xOJ+9N97dQYX9PZoUcaSnTpi+FilhBKKkoYFQMAOIusCAXFHvFctuH7vw/t66nPC44vsNTnROe961vCrab+sfkDar3PXu0SKixQTL1zLfpe0uI5bP+pohxCCHvQS9icuDmIAD17EDpTb12zTcpYy9UP4vPUzD/IQgHrPYNIyO1sSryZoCVimUAjdNeMTxQZvisl0ZEgYQfUAvHnuUjchsG66TcK2e/PP0QDbKdiBFmP4Bf4GP8GQjgQ7C4MiQbTNO/GEiosSM4ZKqIl+DttRAgMBAAECggEAD7xGfX6L21KdWBM5EeNjGIzrxY6iqLC6a7gg237dD3esTuxYBujOcJnQ04pbey8V34Fv8ene/JA100qWH7PBoTipJFV9fDrNkEq2qZa9R2sOHbZLg5kjBHg0g6D4ihEXQlGRJ17/L+UGD2O12Xz6kKyMeYLkR0bqyvQgnYoB7SjGkArfU3PFcVF5swW3vQrXS7gN3j4OoJ+FdMwwVXbv0syyOzYL6j+ZIb8H3MYpBbJCESdJNZFpRS+VSOVsN48ayccFRc/ZcDW9UFgvXfSaMBQygDNzD5UXHS/ke5wD8D9LSMIVuDjRg23zsUM9cIpF7JwXHMXogYW8TNCBuyYhSQKBgQDr1fDPgL/PWwKHLWaMHlqsZ4GWXoH7oT+Gg+ML+MpOiCF27SuG4ocFx2t+fT+Ol2HsJVl7FXpkgcgp41ZlCa5y95ODnHFC1M2fo1iQMnN/Qk0cJwvu5nG4irQfqQ0OPMvOcs/9FSmwO77XyqUvl8Wdo1IJC8UnBQ1F/fdcVfIpSwKBgQDkUv+rZEUeW8rZLFDAM3cEDRMCe7CY8dLFBFhyZUYx0DpcM+0f2e160zax+g1pf+b1fBUnfLHk3V6Iq75EZ8bLUEWFCv+yHPZvvU3fWJ8Hfw/6Wk21U+1ksYAgXDarrQh2Zb9t/hdK/BJThBv00Dz4NNDBQ/BUD79gOfpVIS9oUwKBgAj8SMWPMT+0Rv9hgnO6QFgrRWu2RBuTRDla0w7EtuiRFT1TwgHMpbpZo8XY/c/wAqIdtjATXGtx6m92IveMi+IDftJX5pTWSNNZROmRkob5vrhg4HqEuzZ9ymkeZsnxFQ7TnwsUgFcfn6DXLr4GeVgNPfXsReG7torBJ2iUObrLAoGBANK0xb0li6O4kjpY6yx0UiEq76AbBZ4fjKLEn9ryGxVdVH5CbVI3izEOOiuE11vE7R8eo2cNbB4JLHR0CeKW4p4+NenRfKaik8oKqRK0dg409EnVjGEKUsnaBKPYdZt405Zvz3lyQ4yvkzn/cM08Xwevtfak++SXo8TpvFtThKyBAoGBAKUuGNEo1DmgHxDMi6xAq4fHvnLKgZ8gayUbcTtWzvV9CA6RV2OxRsQF3gHNme7W58VU29X5je1xqVEFQhDn+t1V7EwCLOVgizNDdhUPlFld0N2XZptsjm0av4/OJEHXd0sr05vmJSMHUIn6DtoijiR7lT2LqfGmEKkRyyAbA3An",
+  "name": "Idcard Reader",
+  "version": "1.0",
+  "description": "身份证阅读器!",
+  "permissions": [
+    "declarativeContent",
+    "nativeMessaging"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "externally_connectable": {
+    "matches": ["*://test.example.com/*"]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/test.html",
+        "*://*/test"
+      ],
+      "js": [
+        "contentScript.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "manifest_version": 2
+}
